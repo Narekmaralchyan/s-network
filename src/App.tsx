@@ -1,20 +1,26 @@
-import React, {FC, useEffect, useState} from 'react';
-import {UserSDK} from './SDK';
+import React, {FC} from 'react';
+import {useAppDispatch, useAppSelector} from './app/hooks';
+import AuthenticatedApp from './components/authenticatedApp';
+import UnAuthenticatedApp from './components/unAuthenticatedApp';
+import {setUserId} from './features/current_user/currentUserSlice';
+import {getAuth} from '@firebase/auth';
+import Registration from './pages/registration';
+
 
 const App: FC = () => {
-    const [name,setname] = useState('');
-    const user1 = new UserSDK('idnarekmaralchyan');
+    const {status,data} = useAppSelector(state=>state.currentUser);
+    const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        user1.getName().then((name) => {
-            setname(name);
-        });
-    },[name]);
-  return (
-      <>
-        <h1>{name}</h1>
-      </>
-  );
+    const auth = getAuth();
+    auth.onAuthStateChanged(function(user) {
+        user ? dispatch(setUserId(user.uid)) : dispatch(setUserId(null));
+    });
+
+    return(
+        <>
+            { data ? <AuthenticatedApp /> : <UnAuthenticatedApp />}
+        </>
+    );
 };
 
 export default App;

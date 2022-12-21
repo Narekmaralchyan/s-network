@@ -7,3 +7,5 @@ const AuthenticatedApp = () => {
         </div>
     );
 };
+
+export default AuthenticatedApp;
