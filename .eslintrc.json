@@ -26,6 +26,7 @@
         "array-callback-return": "error",
         "camelcase": ["error", {"properties" :  "always"}],
         "no-console": "warn",
-        "semi": "error"
+        "semi": "error",
+        "no-debugger": "warn"
     }
 }
