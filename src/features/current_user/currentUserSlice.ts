@@ -1,7 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
+interface IState<T>{
+    status:'idle' | 'loading' | 'failed',
+    data:T | null
+}
 
+
+
+const initialState:IState<number> = {
+    status: 'idle',
+    data: null
 };
 
 const currentUserSlice = createSlice({

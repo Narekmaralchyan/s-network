@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getDatabase, ref } from 'firebase/database';
+import { getDatabase, ref,get } from 'firebase/database';
 
 const index = {
     apiKey: 'AIzaSyA-JgZBc2ddF-01ffX8S8hv_i1gTk_u7Ps',
@@ -12,5 +12,5 @@ const index = {
 
 const app = initializeApp(index);
 
-const db = getDatabase();
+export const db = getDatabase();
 const starCountRef = ref(db, 'users/');
