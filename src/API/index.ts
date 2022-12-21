@@ -2,7 +2,7 @@ import {db} from 'firebase_configs/firebaseConfig';
 import { ref,get } from 'firebase/database';
 
 
-class UserSDK {
+class UserAPI {
     userId: string;
 
     constructor(userId: string) {
@@ -81,7 +81,7 @@ class UserSDK {
         return story.val();
     }
 }
-export {UserSDK};
+export {UserAPI};
 
 
 

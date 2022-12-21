@@ -2,6 +2,8 @@ import React, {FC} from 'react';
 
 import { Routes, Route } from 'react-router-dom';
 
+import Settings from 'pages/settings';
+import UserProfile from 'pages/userProfile';
 import Registration from 'pages/registration';
 import {Feed} from '@mui/icons-material';
 
