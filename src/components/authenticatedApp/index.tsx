@@ -1,5 +1,6 @@
 import React from 'react';
 import {getAuth} from '@firebase/auth';
+import AuthRoutes from '../../Routes/authRoutes';
 
 const AuthenticatedApp = () => {
     function exit (){
@@ -9,7 +10,7 @@ const AuthenticatedApp = () => {
     return (
         <div>
             <button onClick={exit}>exit</button>
-            <h1>AuthenticatedApp</h1>
+           <AuthRoutes />
         </div>
     );
 };

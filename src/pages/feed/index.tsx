@@ -1,9 +1,11 @@
 import React from 'react';
+import PostsList from 'components/postsList';
+
 
 const Feed = () => {
     return (
         <div>
-            FEED
+            <PostsList />
         </div>
     );
 };
