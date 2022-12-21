@@ -16,7 +16,7 @@ import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import SimpleBackdrop from 'componenets/loading';
+import SimpleBackdrop from 'components/loading';
 
 
 const theme = createTheme({
