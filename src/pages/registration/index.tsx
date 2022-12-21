@@ -15,26 +15,22 @@ import Box from '@mui/material/Box';
 import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import SimpleBackdrop from 'components/loading';
 
 
 
 const SignUp: FC = () => {
-    const status = useAppSelector(state => state.currentUser.status);
     const dispatch = useAppDispatch();
 
     const submitRegistration = (event: FormEvent<HTMLFormElement>) => {
         dispatch(setLoading());
-        setUser(event).then(userId => {
-            dispatch(setUserId(userId));
-        }).catch(() => {
+        setUser(event)
+            .catch(() => {
             dispatch(setFail());
         });
     };
 
     return (
         <>
-            {status === 'loading' && <SimpleBackdrop />}
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box

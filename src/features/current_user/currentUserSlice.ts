@@ -12,8 +12,11 @@ const currentUserSlice = createSlice({
     initialState,
     reducers: {
         setUserId: (state, action) => {
-            state.status = 'idle';
+            state.status = 'success';
             state.data = action.payload;
+        },
+        logOut:(state)=>{
+            state.data=null;
         },
 
         setLoading: (state) => {
@@ -22,10 +25,11 @@ const currentUserSlice = createSlice({
 
         setFail: (state) => {
             state.status = 'fail';
+            state.data = null;
         }
     }
 });
 
-export const { setUserId, setLoading, setFail } = currentUserSlice.actions;
+export const { setUserId, setLoading, setFail,logOut } = currentUserSlice.actions;
 
 export default currentUserSlice.reducer;

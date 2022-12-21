@@ -1,4 +1,13 @@
-import  React,{useEffect,useState} from 'react';
+import  React from 'react';
+
+import {useWindowSize} from 'customHooks/useWindowSize';
+import Earth from 'components/earth';
+
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+
+import {useAppDispatch} from '../../app/hooks';
+import {setFail, setLoading} from '../../features/current_user/currentUserSlice';
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,21 +20,21 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import Earth from 'components/earth';
-import {useWindowSize} from 'customHooks/useWindowSize';
 
+const auth = getAuth();
 
 
 export default function SignIn() {
     const windowSize =useWindowSize();
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const dispatch = useAppDispatch();
+    const handleSubmit =  (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
+        dispatch(setLoading());
         const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+          signInWithEmailAndPassword(auth, data.get('email') as string , data.get('password') as string)
+            .catch(()=>{
+                dispatch(setFail());
+            });
     };
 
     return (
