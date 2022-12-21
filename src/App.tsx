@@ -4,7 +4,8 @@ import AuthenticatedApp from './components/authenticatedApp';
 import UnAuthenticatedApp from './components/unAuthenticatedApp';
 import {setUserId} from './features/current_user/currentUserSlice';
 import {getAuth} from '@firebase/auth';
-import Registration from './pages/registration';
+import {createTheme} from '@mui/material/styles';
+import {ThemeProvider} from '@mui/material';
 
 
 const App: FC = () => {
@@ -15,11 +16,16 @@ const App: FC = () => {
     auth.onAuthStateChanged(function(user) {
         user ? dispatch(setUserId(user.uid)) : dispatch(setUserId(null));
     });
+    const theme = createTheme({
+        palette: {
+            mode:'dark'
+        }
+    });
 
     return(
-        <>
+        <ThemeProvider theme={theme}>
             { data ? <AuthenticatedApp /> : <UnAuthenticatedApp />}
-        </>
+        </ThemeProvider>
     );
 };
 

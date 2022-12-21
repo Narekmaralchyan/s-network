@@ -1,10 +1,11 @@
 import React from 'react';
+import UnAuthRoutes from 'Routes/unAuthRoutes';
 const UnAuthenticatedApp = () => {
 
     return (
-        <div>
-            <h1>UnAuthenticatedApp</h1>
-        </div>
+        <>
+            <UnAuthRoutes/>
+        </>
     );
 
 };
