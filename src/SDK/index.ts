@@ -1,4 +1,4 @@
-import {db} from '../firebase/firebaseConfig';
+import {db} from 'firebase_configs/firebaseConfig';
 import { ref,get } from 'firebase/database';
 
 
@@ -7,6 +7,7 @@ class UserSDK {
 
     constructor(userId: string) {
         this.userId = userId;
+
     }
 
     async getName() {
