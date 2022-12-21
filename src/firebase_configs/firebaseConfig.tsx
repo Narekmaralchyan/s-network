@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getDatabase, ref } from 'firebase/database';
+import { getDatabase, ref,get } from 'firebase/database';
 import '@firebase/auth';
 
 const index = {
@@ -14,4 +14,3 @@ const index = {
 const app = initializeApp(index);
 
 export const db = getDatabase();
-export const starCountRef = ref(db, 'users/');

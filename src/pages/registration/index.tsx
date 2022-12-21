@@ -33,7 +33,7 @@ const SignUp: FC = () => {
         dispatch(setLoading());
         setUser(event).then(userId => {
             dispatch(setUserId(userId));
-        }).catch(err => {
+        }).catch(() => {
             dispatch(setFail());
         });
     };
