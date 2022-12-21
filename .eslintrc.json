@@ -20,5 +20,12 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "quotes": ["error", "single"],
+        "jsx-quotes": ["error", "prefer-double"],
+        "no-unused-vars": "warn",
+        "array-callback-return": "error",
+        "camelcase": ["error", {"properties" :  "always"}],
+        "no-console": "warn",
+        "semi": "error"
     }
 }
