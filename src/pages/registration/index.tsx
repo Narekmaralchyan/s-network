@@ -28,7 +28,7 @@ const SignUp: FC = () => {
         dispatch(setLoading());
         setUser(event)
             .then(()=>{
-                navigate('/feed');
+                navigate('/');
             })
             .catch(() => {
             dispatch(setFail());
