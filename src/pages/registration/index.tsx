@@ -5,6 +5,7 @@ import { setLoading, setFail, setUserId } from '../../features/current_user/curr
 
 import { setUser } from 'utils/setUser';
 
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,15 +16,20 @@ import Box from '@mui/material/Box';
 import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import {useNavigate} from 'react-router-dom';
 
 
 
 const SignUp: FC = () => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const submitRegistration = (event: FormEvent<HTMLFormElement>) => {
         dispatch(setLoading());
         setUser(event)
+            .then(()=>{
+                navigate('/feed');
+            })
             .catch(() => {
             dispatch(setFail());
         });

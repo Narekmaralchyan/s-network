@@ -1,12 +1,11 @@
 import React, {FC} from 'react';
 import {useAppDispatch, useAppSelector} from './app/hooks';
-import AuthenticatedApp from './components/authenticatedApp';
-import UnAuthenticatedApp from './components/unAuthenticatedApp';
 import {logOut, setUserId} from './features/current_user/currentUserSlice';
 import {getAuth} from '@firebase/auth';
 import {createTheme} from '@mui/material/styles';
 import {Alert, ThemeProvider} from '@mui/material';
 import SimpleBackdrop from './components/loading';
+import AppRoutes from './Routes/routes';
 
 const auth = getAuth();
 const App: FC = () => {
@@ -30,7 +29,7 @@ const App: FC = () => {
     return(
         <ThemeProvider theme={theme}>
             { status == 'loading'? <SimpleBackdrop />: status=='fail'?<Alert severity="error">Incorrect Email or Password,Try Again!!!</Alert>:null }
-            { data ? <AuthenticatedApp /> : <UnAuthenticatedApp />}
+            <AppRoutes />
         </ThemeProvider>
     );
 };
