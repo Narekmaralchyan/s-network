@@ -35,9 +35,6 @@ export default function SignIn() {
         dispatch(setLoading());
         const data = new FormData(event.currentTarget);
           signInWithEmailAndPassword(auth, data.get('email') as string , data.get('password') as string)
-              .then(()=>{
-                  navigate('/feed');
-              })
             .catch(()=>{
                 dispatch(setFail());
             });
