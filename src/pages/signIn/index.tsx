@@ -20,6 +20,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
+import {useNavigate} from 'react-router-dom';
 
 const auth = getAuth();
 
@@ -27,11 +28,16 @@ const auth = getAuth();
 export default function SignIn() {
     const windowSize =useWindowSize();
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+
     const handleSubmit =  (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         dispatch(setLoading());
         const data = new FormData(event.currentTarget);
           signInWithEmailAndPassword(auth, data.get('email') as string , data.get('password') as string)
+              .then(()=>{
+                  navigate('/feed');
+              })
             .catch(()=>{
                 dispatch(setFail());
             });
