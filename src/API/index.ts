@@ -1,5 +1,5 @@
 import {db} from 'firebase_configs/firebaseConfig';
-import { ref,get } from 'firebase/database';
+import {ref, get, set ,onValue} from 'firebase/database';
 
 
 class UserAPI {
@@ -80,6 +80,36 @@ class UserAPI {
         const story = await get(ref(db, `${this.userId}/stories/${storyId}`));
         return story.val();
     }
+    async followUser(id: string) {
+
+        const follows = await this.getFollows();
+        const followers = await get(ref(db, `${id}/followers`));
+
+        if (followers.val() === null) {
+            await set(ref(db, id + '/followers'), [this.userId]);
+        } else if (!followers.val().includes(this.userId)) {
+            await set(ref(db, id + '/followers'), [...followers.val(), this.userId]);
+        } else {
+            await set(ref(db, id + '/followers'), followers.val().filter((follower: string) => follower !== this.userId));
+        }
+
+        if(follows === null) {
+            await set(ref(db, this.userId+'/follows'), [id]);
+        }
+        else if(!follows.includes(id)) {
+            await set(ref(db, this.userId+'/follows'), [...follows, id]);
+        }
+        else{
+            await set(ref(db, this.userId+'/follows'), follows.filter((follow: string) => follow !== id));
+        }
+
+    }
+
+    async isFollowed(id: string) {
+        const follows = await this.getFollows();
+        return follows.includes(id);
+    }
+
 }
 export {UserAPI};
 
