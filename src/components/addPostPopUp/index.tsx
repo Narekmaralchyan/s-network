@@ -3,12 +3,16 @@ import './style.css';
 import {Button, Input} from '@mui/material';
 import {useAppSelector} from '../../app/hooks';
 import {UserAPI} from '../../API';
+import SimpleBackdrop from '../loading';
+import {Alert} from '@mui/material';
 
 interface IProps {
     handleShowAddPostPopUp:()=>void;
 }
 
 const AddPostPopUp:FC<IProps> = ({handleShowAddPostPopUp})=>{
+    const [showAlert,setShowAlert] = useState(false);
+    const [loading,setLoading] = useState(false);
     const [file,setFile] = useState(null);
     const [description,setDescription] = useState('');
     const {data} = useAppSelector(state=>state.currentUser);
@@ -21,18 +25,32 @@ const AddPostPopUp:FC<IProps> = ({handleShowAddPostPopUp})=>{
         setDescription(e.target.value);
     }
     function addPost(){
+        setLoading(true);
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function (){
             currentUserAPI.addPost(reader.result as string,description)
                 .then(()=>{
-                    handleShowAddPostPopUp();
+                    setLoading(false);
+                    setShowAlert(true);
                 });
         };
     }
 
     return (
+        <>
         <div className="popUp_background">
+            {loading && <SimpleBackdrop/>}
+            {
+                showAlert ?
+                    <Alert sx={{zIndex:'100'}}    action={
+                        <Button onClick={()=>{setShowAlert(false);handleShowAddPostPopUp();}} color="inherit" size="small">
+                            CLOSE
+                        </Button>
+                    }>
+                        Image uploaded successfully!!!
+                    </Alert>
+            :
             <div className="popUp">
                 <img alt="added_image" src={file && URL.createObjectURL(file) || 'https://cdn.pixabay.com/photo/2017/04/20/07/07/add-2244771_960_720.png'}/>
                 <div className="manage">
@@ -44,7 +62,10 @@ const AddPostPopUp:FC<IProps> = ({handleShowAddPostPopUp})=>{
                    </div>
                 </div>
             </div>
+            }
         </div>
+
+        </>
     );
 };
 

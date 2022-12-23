@@ -7,7 +7,7 @@ export default function SimpleBackdrop() {
     return (
         <div>
             <Backdrop
-                sx={{ color: 'white', position:'fixed', zIndex: 100 }}
+                sx={{ color: 'white', position:'fixed', zIndex: 101 }}
                 open={true}
             >
                 <CircularProgress color="inherit" size="100px"/>
