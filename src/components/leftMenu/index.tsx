@@ -12,18 +12,27 @@ import PersonSearchOutlinedIcon from '@mui/icons-material/PersonSearchOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
+import HomeIcon from '@mui/icons-material/Home';
 
 import leftMenu from './leftMenuCss';
 
+
 const TemporaryDrawer: FC = () => {
-    const icons = [<AccountBoxOutlinedIcon sx={{fontSize: '40px', marginRight: '20px'}} key={1}/>, <MessageOutlinedIcon sx={{fontSize: '40px', marginRight: '20px'}} key={2}/>, <PersonSearchOutlinedIcon sx={{fontSize: '40px', marginRight: '20px'}} key={3}/>, <SettingsOutlinedIcon sx={{fontSize: '40px', marginRight: '20px'}} key={4}/>, <LogoutOutlinedIcon sx={{fontSize: '40px', marginRight: '20px'}} key={5}/>];
+    const icons = [
+        <HomeIcon sx={{fontSize: '40px', marginRight: '20px'}} key={1}/>,
+        <AccountBoxOutlinedIcon sx={{fontSize: '40px', marginRight: '20px'}} key={1}/>,
+        <MessageOutlinedIcon sx={{fontSize: '40px', marginRight: '20px'}} key={2}/>,
+        <PersonSearchOutlinedIcon sx={{fontSize: '40px', marginRight: '20px'}} key={3}/>,
+        <SettingsOutlinedIcon sx={{fontSize: '40px', marginRight: '20px'}} key={4}/>,
+        <LogoutOutlinedIcon sx={{fontSize: '40px', marginRight: '20px'}} key={5}/>,
+    ];
 
     return (
         <div className="left_menu">
                 <Box sx={leftMenu.boxStyle}>
                     <Divider />
                     <List sx={{fontSize: '40px'}}>
-                        {['Profile', 'Messages', 'Search', 'Settings', 'Log out'].map((text, index) => (
+                        {['Home','Profile', 'Messages', 'Search', 'Settings', 'Log out'].map((text, index) => (
                             <ListItem key={text} disablePadding sx={{marginBottom: '15px'}}>
                                 <ListItemButton>
                                     <ListItemIcon>

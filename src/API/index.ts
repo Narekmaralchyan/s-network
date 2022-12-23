@@ -1,5 +1,6 @@
 import {db} from 'firebase_configs/firebaseConfig';
 import {ref, get, set } from 'firebase/database';
+import { v4 as uuid } from 'uuid';
 
 
 class UserAPI {
@@ -108,6 +109,16 @@ class UserAPI {
     async isFollowed(id: string) {
         const follows = await this.getFollows();
         return follows.includes(id);
+    }
+    async addPost(image:string,description:string){
+        const id = uuid();
+        await set(ref(db, this.userId+`/posts/${id}`),{
+            id:id,
+            authorId:this.userId,
+            postTime:Date.now(),
+            imageURL:image,
+            description:description,
+        } );
     }
 
 }
