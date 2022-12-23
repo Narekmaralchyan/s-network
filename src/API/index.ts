@@ -1,5 +1,5 @@
 import {db} from 'firebase_configs/firebaseConfig';
-import {ref, get, set ,onValue} from 'firebase/database';
+import {ref, get, set } from 'firebase/database';
 
 
 class UserAPI {
