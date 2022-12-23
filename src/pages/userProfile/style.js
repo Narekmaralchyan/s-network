@@ -10,7 +10,7 @@
     'alignItems':'center' };
 const profileHeader = {
     'width':'50%',
-    'minWidth': '300px',
+    'minWidth': '513px',
     'height':'150px',
     'display': 'flex',
     justifyContent:'space-around',

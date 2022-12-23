@@ -31,7 +31,7 @@ const TemporaryDrawer: FC = () => {
    }
 
     return (
-        <div className="left_menu" style={}>
+        <div className="left_menu" >
                 <Box sx={leftMenu.boxStyle}>
                     <Divider />
                     <List sx={{fontSize: '40px'}}>
