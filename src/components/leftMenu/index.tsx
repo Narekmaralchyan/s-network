@@ -15,38 +15,68 @@ import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
 import HomeIcon from '@mui/icons-material/Home';
 
 import leftMenu from './leftMenuCss';
+import {useNavigate} from 'react-router-dom';
+import {useAppSelector} from '../../app/hooks';
 
 
 const TemporaryDrawer: FC = () => {
-    const icons = [
-        <HomeIcon sx={{fontSize: '40px', marginRight: '20px'}} key={1}/>,
-        <AccountBoxOutlinedIcon sx={{fontSize: '40px', marginRight: '20px'}} key={1}/>,
-        <MessageOutlinedIcon sx={{fontSize: '40px', marginRight: '20px'}} key={2}/>,
-        <PersonSearchOutlinedIcon sx={{fontSize: '40px', marginRight: '20px'}} key={3}/>,
-        <SettingsOutlinedIcon sx={{fontSize: '40px', marginRight: '20px'}} key={4}/>,
-        <LogoutOutlinedIcon sx={{fontSize: '40px', marginRight: '20px'}} key={5}/>,
-    ];
+    const navigate = useNavigate();
+    const {data} = useAppSelector(state=>state.currentUser);
+    
+   function goHome(){
+       navigate('/');
+   }
+   function goProfile(){
+       navigate(`/profile/${data}`);
+   }
 
     return (
-        <div className="left_menu">
+        <div className="left_menu" style={}>
                 <Box sx={leftMenu.boxStyle}>
                     <Divider />
                     <List sx={{fontSize: '40px'}}>
-                        {['Home','Profile', 'Messages', 'Search', 'Settings', 'Log out'].map((text, index) => (
-                            <ListItem key={text} disablePadding sx={{marginBottom: '15px'}}>
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        {icons[index]}
-                                    </ListItemIcon>
+                        <ListItem disablePadding sx={{marginBottom: '15px'}}>
+                            <ListItemButton onClick={goHome}>
+                                <HomeIcon  sx={{fontSize: '40px', marginRight: '20px'}} key={1}/>
+                                <ListItemText primary="Home" primaryTypographyProps={{fontSize: '1.3rem'}} />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding sx={{marginBottom: '15px'}}>
+                            <ListItemButton onClick={goProfile}>
+                                <AccountBoxOutlinedIcon  sx={{fontSize: '40px', marginRight: '20px'}} key={1}/>
+                                <ListItemText primary="Profile" primaryTypographyProps={{fontSize: '1.3rem'}} />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding sx={{marginBottom: '15px'}}>
+                            <ListItemButton>
+                                <MessageOutlinedIcon sx={{fontSize: '40px', marginRight: '20px'}} key={2}/>
+                                <ListItemText primary="Messages" primaryTypographyProps={{fontSize: '1.3rem'}} />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding sx={{marginBottom: '15px'}}>
+                            <ListItemButton>
+                                <PersonSearchOutlinedIcon sx={{fontSize: '40px', marginRight: '20px'}} key={3}/>
+                                <ListItemText primary="Search" primaryTypographyProps={{fontSize: '1.3rem'}} />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding sx={{marginBottom: '15px'}}>
+                            <ListItemButton>
+                                <SettingsOutlinedIcon sx={{fontSize: '40px', marginRight: '20px'}} key={4}/>
+                                <ListItemText primary="Settings" primaryTypographyProps={{fontSize: '1.3rem'}} />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding sx={{marginBottom: '15px'}}>
+                            <ListItemButton>
+                                <LogoutOutlinedIcon sx={{fontSize: '40px', marginRight: '20px'}} key={5}/>
+                                <ListItemText primary="Log Out" primaryTypographyProps={{fontSize: '1.3rem'}} />
+                            </ListItemButton>
+                        </ListItem>
 
-                                    <ListItemText primary={text} primaryTypographyProps={{fontSize: '1.3rem'}} />
-                                </ListItemButton>
-                            </ListItem>
-                        ))}
                     </List>
                 </Box>
         </div>
     );
 };
+
 
 export default TemporaryDrawer;

@@ -12,12 +12,14 @@ interface IProps {
 
 const RightMenu:FC<IProps> = ({handleShowAddPostPopUp}) =>{
     return (
-        <Box sx={{ height: 1, transform: 'translateZ(0px)', flexGrow: 1 }}>
-            <SpeedDial ariaLabel="SpeedDial basic example" sx={{ position: 'fixed', bottom: 30, right: 30 }} icon={<SpeedDialIcon />}>
-                <SpeedDialAction onClick={handleShowAddPostPopUp} key="Add Post" icon={<PostAddIcon fontSize="large"   />} tooltipTitle="Add Post"/>
-                <SpeedDialAction  key="Add Story" icon={<HistoryIcon fontSize="large"  />} tooltipTitle="Add Story"/>
-            </SpeedDial>
-        </Box>
+        <div  style={{position:'fixed',right:30,bottom:30}}>
+            <Box sx={{ height: 1, transform: 'translateZ(0px)', flexGrow: 1 }}>
+                <SpeedDial ariaLabel="SpeedDial basic example" sx={{  bottom: 30, right: 30 ,}} icon={<SpeedDialIcon />}>
+                    <SpeedDialAction onClick={handleShowAddPostPopUp} key="Add Post" icon={<PostAddIcon fontSize="large"   />} tooltipTitle="Add Post"/>
+                    <SpeedDialAction  key="Add Story" icon={<HistoryIcon fontSize="large"  />} tooltipTitle="Add Story"/>
+                </SpeedDial>
+            </Box>
+        </div>
     );
 };
 
