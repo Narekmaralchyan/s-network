@@ -22,7 +22,7 @@ const UserProfileHeader:FC<IProps> = ({profileUserId,isOwner,currentUserAPI})=>{
     const followBtnText = profileUserLiveInfo?.followers?.includes(data || '')?'Unfollow':'follow';
 
     if(profileUserLiveInfo){
-        return (
+        return ( <div>
                 <Card sx={style.profileHeader} >
                     <Avatar sx={{height:'130px',width:'130px'}} src={profileUserLiveInfo.avatarUrl} />
                     <Card sx={style.info}>
@@ -44,9 +44,11 @@ const UserProfileHeader:FC<IProps> = ({profileUserId,isOwner,currentUserAPI})=>{
                         }
                     </Card>
                 </Card>
+            </div>
         );
     }
     else return (
+        <div>
             <Card sx={style.profileHeader} >
                 <Avatar sx={{height:'130px',width:'130px'}}  />
                 <Card sx={style.info}>
@@ -63,6 +65,7 @@ const UserProfileHeader:FC<IProps> = ({profileUserId,isOwner,currentUserAPI})=>{
                     <Skeleton variant="text" width={100} height={64} />
                 </Card>
             </Card>
+        </div>
     );
 };
 export default UserProfileHeader;

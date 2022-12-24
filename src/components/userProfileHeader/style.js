@@ -1,9 +1,9 @@
 const profileHeader = {
-    'width':'50%',
+    'width':'50vw',
     'minWidth': '513px',
     'height':'150px',
     'display': 'flex',
-    justifyContent:'space-around',
+    'justifyContent':'space-around',
     'alignItems': 'center',
 };
 

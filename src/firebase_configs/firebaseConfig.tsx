@@ -14,3 +14,4 @@ const index = {
 const app = initializeApp(index);
 
 export const db = getDatabase();
+

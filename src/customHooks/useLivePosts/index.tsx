@@ -20,7 +20,7 @@ interface IPost{
 
 }
 
-const useLivePosts = (id:string)=>{
+const useLivePosts = (id:string,stopLoading:()=>void)=>{
     const [state,setState] = useState<IPost[]|null>(null);
     const Ref = ref(db,`${id}/posts`);
     useEffect(()=>{
@@ -31,6 +31,7 @@ const useLivePosts = (id:string)=>{
                     const posts = Object.values(snapshot.val()) as IPost[];
                     setState(posts.sort((a,b)=>b.postTime-a.postTime));
                 }
+                stopLoading();
             }));
         }
         ,[]);

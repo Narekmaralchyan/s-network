@@ -1,19 +1,50 @@
-import React , { FC } from 'react';
-import useLivePosts from '../../customHooks/useLivePosts';
+import React , { FC , useEffect , useState } from 'react';
+import './style.css';
+import { UserAPI } from '../../API';
+import { IPost } from '../../interfaces';
+import { Skeleton } from '@mui/material';
 
 interface IProps{
     profileUserId:string;
+
 }
 
 
 const UserProfileBody:FC<IProps> = ({profileUserId}) => {
-    const posts = useLivePosts(profileUserId);
+    const [pageLoading,setPageLoading] = useState(true);
+    const profileUserAPI = new UserAPI(profileUserId);
 
-    if(posts){
-        return (<div style={{display:'flex',flexWrap:'wrap'}}>
+    const [posts,setPosts] = useState<IPost[] | null>(null);
+
+    useEffect(()=>{
+        profileUserAPI.getPosts()
+            .then(posts=>{
+                setPosts(Object.values(posts));
+                stopPageLoading();
+            });
+    },[]);
+
+    function stopPageLoading(){
+        setPageLoading(false);
+    }
+
+   if(pageLoading){
+       return (<div className="pageLoading">
+           <Skeleton variant="rectangular" width={'30%'} height={250} />
+           <Skeleton variant="rectangular" width={'30%'} height={250} />
+           <Skeleton variant="rectangular" width={'30%'} height={250} />
+           <Skeleton variant="rectangular" width={'30%'} height={250} />
+           <Skeleton variant="rectangular" width={'30%'} height={250} />
+           <Skeleton variant="rectangular" width={'30%'} height={250} />
+       </div>);
+   }
+   else if(posts){
+        return (<div className="postList">
             {
                 posts.map(post=>{
-                    return <img style={{height:'200px',objectFit:'contain'}} src={post.imageURL} key={post.id} alt={post.description} />;
+                    return( <div key={post.id} className="postItem">
+                        <img  src={post.imageURL}  alt={post.description} />
+                    </div>);
                 })
             }
         </div>);

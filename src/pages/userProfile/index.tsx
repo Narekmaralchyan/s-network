@@ -19,7 +19,7 @@ const UserProfile = () => {
         return (
             <Card  sx={style.box}>
                 <UserProfileHeader profileUserId={profileUserId} isOwner={isOwner} currentUserAPI={currentUserAPI}/>
-                <UserProfileBody profileUserId={profileUserId}/>
+                <UserProfileBody profileUserId={profileUserId} />
             </Card>
         );
 };
