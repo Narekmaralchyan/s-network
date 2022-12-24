@@ -5,7 +5,6 @@ import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
 import PersonSearchOutlinedIcon from '@mui/icons-material/PersonSearchOutlined';
@@ -18,8 +17,12 @@ import leftMenu from './leftMenuCss';
 import {useNavigate} from 'react-router-dom';
 import {useAppSelector} from '../../app/hooks';
 
+interface IProps {
+    handleShowSearchPopUp:()=>void;
+}
 
-const TemporaryDrawer: FC = () => {
+
+const TemporaryDrawer: FC<IProps> = ({handleShowSearchPopUp}) => {
     const navigate = useNavigate();
     const {data} = useAppSelector(state=>state.currentUser);
     
@@ -28,6 +31,9 @@ const TemporaryDrawer: FC = () => {
    }
    function goProfile(){
        navigate(`/profile/${data}`);
+   }
+   function showSearch(){
+       handleShowSearchPopUp();
    }
 
     return (
@@ -54,7 +60,7 @@ const TemporaryDrawer: FC = () => {
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding sx={{marginBottom: '15px'}}>
-                            <ListItemButton>
+                            <ListItemButton onClick={showSearch}>
                                 <PersonSearchOutlinedIcon sx={{fontSize: '40px', marginRight: '20px'}} key={3}/>
                                 <ListItemText primary="Search" primaryTypographyProps={{fontSize: '1.3rem'}} />
                             </ListItemButton>

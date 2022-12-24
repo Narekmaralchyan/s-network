@@ -1,0 +1,27 @@
+.postList{
+display:flex;
+    justify-content:start;
+    flex-wrap:wrap;
+    width:70vw;
+    gap: 10px;
+}
+.postItem{
+    width: 30%;
+    background-color: white;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.postItem img {
+    height: 100%;
+}
+.pageLoading{
+    width: 70vw;
+    display: flex;
+    gap:10px;
+    flex-wrap: wrap;
+}

@@ -15,7 +15,7 @@ const useLiveInfo = (id:string)=>{
     const [state,setState] = useState<ILiveInfo | null>(null);
     const Ref = ref(db,`${id}`);
     useEffect(()=>{
-
+        setState(null);
         return  onValue(Ref,(snapshot=>{
                 const obj ={
                     name:snapshot.val().name,
@@ -28,7 +28,7 @@ const useLiveInfo = (id:string)=>{
                 setState(obj);
             }));
         }
-    ,[]);
+    ,[id]);
 
     return state;
 };

@@ -1,6 +1,7 @@
 import {db} from 'firebase_configs/firebaseConfig';
 import {ref, get, set } from 'firebase/database';
 import { v4 as uuid } from 'uuid';
+import { IPost , ISearchResult , IUser } from '../interfaces';
 
 
 class UserAPI {
@@ -59,6 +60,10 @@ class UserAPI {
     }
     async getPosts() {
         const posts = await get(ref(db, `${this.userId}/posts`));
+        if(posts.val()){
+            const data = Object.values(posts.val()) as IPost[];
+            return data.sort((a,b)=>b.postTime-a.postTime);
+        }
         return posts.val();
     }
     async getPost(postId: string) {
@@ -119,6 +124,21 @@ class UserAPI {
             imageURL:image,
             description:description,
         } );
+    }
+
+    async searchUsers(name:string) {
+        const users = await get(ref(db, '/'));
+        const data = Object.values(users.val()) as IUser[];
+
+         const filteredData = data.map(user=>{
+             return {
+                 name:user.name,
+                 lastName:user.lastName,
+                 id:user.id,
+                 avatarURL:user.avatarURL,
+             } as ISearchResult;
+         });
+        return filteredData.filter(user=>(user.name +' '+ user.lastName).toUpperCase().includes(name.toUpperCase()) );
     }
 
 }
