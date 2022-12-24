@@ -1,5 +1,5 @@
 import React from 'react';
-import {useLocation} from 'react-router-dom';
+import { useLocation , useParams } from 'react-router-dom';
 
 import {UserAPI} from 'API';
 import { Card } from '@mui/material';
@@ -10,7 +10,7 @@ import UserProfileBody from '../../components/userProfileBody';
 
 
 const UserProfile = () => {
-    const profileUserId = useLocation().pathname.split('/')[2];
+    const {id : profileUserId} = useParams();
     const {data} = useAppSelector(state => state.currentUser);
 
     const currentUserAPI = new UserAPI(data || '');

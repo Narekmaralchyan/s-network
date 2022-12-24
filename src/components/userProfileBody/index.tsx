@@ -3,6 +3,7 @@ import './style.css';
 import { UserAPI } from '../../API';
 import { IPost } from '../../interfaces';
 import { Skeleton } from '@mui/material';
+import { setLoading } from '../../features/current_user/currentUserSlice';
 
 interface IProps{
     profileUserId:string;
@@ -12,17 +13,24 @@ interface IProps{
 
 const UserProfileBody:FC<IProps> = ({profileUserId}) => {
     const [pageLoading,setPageLoading] = useState(true);
-    const profileUserAPI = new UserAPI(profileUserId);
+
 
     const [posts,setPosts] = useState<IPost[] | null>(null);
 
     useEffect(()=>{
+        setPageLoading(true);
+        const profileUserAPI = new UserAPI(profileUserId);
         profileUserAPI.getPosts()
             .then(posts=>{
+                console.log(posts);
                 setPosts(Object.values(posts));
                 stopPageLoading();
-            });
-    },[]);
+            })
+            .catch(err=>{
+                stopPageLoading();
+            setPosts([]);
+        });
+    },[profileUserId]);
 
     function stopPageLoading(){
         setPageLoading(false);
@@ -38,7 +46,7 @@ const UserProfileBody:FC<IProps> = ({profileUserId}) => {
            <Skeleton variant="rectangular" width={'30%'} height={250} />
        </div>);
    }
-   else if(posts){
+   else if(posts?.length){
         return (<div className="postList">
             {
                 posts.map(post=>{

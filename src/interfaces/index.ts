@@ -19,3 +19,32 @@ export interface IPost{
     comments?:IComment[];
 
 }
+export interface IStory{
+    authorId:string;
+    id:string;
+    imgURL:string;
+    storyTime:number;
+}
+export  interface IUser {
+    name:string;
+    lastName:string;
+    id:string;
+    email:string;
+    follows?:string[];
+    followers?:string[];
+    avatarURL?:string;
+    posts?:{
+        id:IPost;
+    };
+    stories?:{
+        id:IStory
+    };
+
+}
+
+export interface ISearchResult{
+    name:string;
+    lastName:string;
+    id:string;
+    avatarURL:string | undefined;
+}

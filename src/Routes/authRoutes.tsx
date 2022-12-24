@@ -8,18 +8,23 @@ import Feed from 'pages/feed';
 import LeftMenu from 'components/leftMenu';
 import RightMenu from 'components/rightMenu';
 import AddPostPopUp from '../components/addPostPopUp';
+import SearchPopUp from '../components/searchPopUp';
 
 const AuthRoutes: FC = () => {
     const [showAddPostPopUp,setShowAddPostPopUp] = useState(false);
-
+    const [showSearchPopUp,setShowSearchPopUP] = useState(false);
     function handleShowAddPostPopUp(){
         setShowAddPostPopUp(prev=>!prev);
+    }
+    function handleShowSearchPopUp (){
+        setShowSearchPopUP(prev => !prev);
     }
     
     return (
         <>
-            <LeftMenu />
+            <LeftMenu handleShowSearchPopUp={handleShowSearchPopUp} />
             <RightMenu handleShowAddPostPopUp={handleShowAddPostPopUp} />
+            {showSearchPopUp && <SearchPopUp handleShowSearchPopUp={handleShowSearchPopUp}/>}
             {showAddPostPopUp && <AddPostPopUp handleShowAddPostPopUp={handleShowAddPostPopUp} />}
             <Routes>
                 <Route path="/" element={<Feed/>} />
