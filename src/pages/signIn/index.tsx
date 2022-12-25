@@ -6,7 +6,7 @@ import Earth from 'components/earth';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 import {useAppDispatch} from '../../app/hooks';
-import {setFail, setLoading} from '../../features/current_user/currentUserSlice';
+import {setFail, setLoading} from '../../features/currentUserSlice/currentUserSlice';
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';

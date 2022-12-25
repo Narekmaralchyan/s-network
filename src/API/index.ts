@@ -1,6 +1,7 @@
 import {db} from 'firebase_configs/firebaseConfig';
 import {ref, get, set } from 'firebase/database';
 import { v4 as uuid } from 'uuid';
+import {IStory} from '../interfaces';
 
 
 class UserAPI {
@@ -31,6 +32,16 @@ class UserAPI {
         return avatarUrl.val();
     }
 
+    async getAvatarName() {
+        const name = await this.getName();
+        const avatarUrl = await this.getAvatar();
+
+        return {
+            name,
+            avatarUrl
+        };
+    }
+
     async getFollowers() {
         const followers = await get(ref(db, `${this.userId}/followers`));
         return followers.val();
@@ -41,6 +52,12 @@ class UserAPI {
         return follows.val();
     }
 
+    async getFollowsUsersData(id: string) {
+        const followsUser = await get(ref(db, `${id}`));
+
+        return followsUser.val();
+    }
+
     async getAllPrimitiveData() {
         const name = await this.getName();
         const lastName = await this.getLastName();
@@ -48,6 +65,7 @@ class UserAPI {
         const avatarUrl = await this.getAvatar();
         const followers = await this.getFollowers();
         const follows = await this.getFollows();
+
         return {
             name,
             lastName,
@@ -73,14 +91,21 @@ class UserAPI {
         const likes = await get(ref(db, `${this.userId}/posts/${postId}/likes`));
         return likes.val();
     }
-    async getStories() {
-        const stories = await get(ref(db, `${this.userId}/stories`));
+    async getStories(userId?: string) {
+        const stories = await get(ref(db, `${userId ? userId : this.userId}/stories`));
         return stories.val();
     }
     async getStory(storyId: string) {
         const story = await get(ref(db, `${this.userId}/stories/${storyId}`));
         return story.val();
     }
+
+    async addStories(story: IStory) {
+        await set(ref(db, this.userId + `/stories/${story.storyId}`), {
+            ...story
+        });
+    }
+
     async followUser(id: string) {
 
         const follows = await this.getFollows();

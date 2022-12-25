@@ -1,6 +1,6 @@
 import React, {FC, useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from './app/hooks';
-import {logOut, setUserId} from './features/current_user/currentUserSlice';
+import {logOut, setUserId} from './features/currentUserSlice/currentUserSlice';
 import {getAuth} from '@firebase/auth';
 import {createTheme} from '@mui/material/styles';
 import {Alert, ThemeProvider} from '@mui/material';

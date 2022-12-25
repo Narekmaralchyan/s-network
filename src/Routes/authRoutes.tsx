@@ -8,19 +8,26 @@ import Feed from 'pages/feed';
 import LeftMenu from 'components/leftMenu';
 import RightMenu from 'components/rightMenu';
 import AddPostPopUp from '../components/addPostPopUp';
+import CreateStoriesPopUp from '../components/stories/createStoriesPopUp';
 
 const AuthRoutes: FC = () => {
     const [showAddPostPopUp,setShowAddPostPopUp] = useState(false);
+    const [showStoriesPopUp, setShowStoriesPopUp] = useState(false);
 
     function handleShowAddPostPopUp(){
         setShowAddPostPopUp(prev=>!prev);
+    }
+
+    function handleShowStoriesPopUp() {
+        setShowStoriesPopUp(prevState => !prevState);
     }
     
     return (
         <>
             <LeftMenu />
-            <RightMenu handleShowAddPostPopUp={handleShowAddPostPopUp} />
+            <RightMenu handleShowAddPostPopUp={handleShowAddPostPopUp} handleShowStoriesPopUp={handleShowStoriesPopUp}/>
             {showAddPostPopUp && <AddPostPopUp handleShowAddPostPopUp={handleShowAddPostPopUp} />}
+            {showStoriesPopUp && <CreateStoriesPopUp handleShowStoriesPopUp={handleShowStoriesPopUp}/>}
             <Routes>
                 <Route path="/" element={<Feed/>} />
                 <Route path="feed" element={<Feed/>} />

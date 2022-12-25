@@ -27,6 +27,7 @@
         "camelcase": ["error", {"properties" :  "always"}],
         "no-console": "warn",
         "semi": "error",
-        "no-debugger": "warn"
+        "no-debugger": "warn",
+        "no-empty-function": "warn"
     }
 }

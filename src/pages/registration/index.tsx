@@ -1,7 +1,7 @@
 import React, {FC, FormEvent} from 'react';
 
 import {useAppDispatch, useAppSelector} from 'app/hooks';
-import { setLoading, setFail, setUserId } from '../../features/current_user/currentUserSlice';
+import { setLoading, setFail, setUserId } from '../../features/currentUserSlice/currentUserSlice';
 
 import { setUser } from 'utils/setUser';
 
