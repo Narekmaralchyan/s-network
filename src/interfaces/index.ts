@@ -48,3 +48,7 @@ export interface ISearchResult{
     id:string;
     avatarURL:string | undefined;
 }
+export interface IPostRequestParams {
+    start:number,
+    limit:number,
+}

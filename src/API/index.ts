@@ -1,7 +1,7 @@
 import {db} from 'firebase_configs/firebaseConfig';
 import {ref, get, set } from 'firebase/database';
 import { v4 as uuid } from 'uuid';
-import { IPost , ISearchResult , IUser } from '../interfaces';
+import { IPost , IPostRequestParams , ISearchResult , IUser } from '../interfaces';
 
 
 class UserAPI {
@@ -39,7 +39,7 @@ class UserAPI {
 
     async getFollows() {
         const follows = await get(ref(db, `${this.userId}/follows`));
-        return follows.val();
+        return follows.val() as string[];
     }
 
     async getAllPrimitiveData() {
@@ -140,6 +140,28 @@ class UserAPI {
          });
         return filteredData.filter(user=>(user.name +' '+ user.lastName).toUpperCase().includes(name.toUpperCase()) );
     }
+
+    async getFollowPosts(params:IPostRequestParams){
+        const data= [] as IPost[];
+        const follows = await this.getFollows();
+        if(follows?.length){
+            for(const user of follows){
+                const tempAPI = new UserAPI(user);
+                const tempPOSTS = await  tempAPI.getPosts();
+                data.push(...tempPOSTS);
+            }
+            return {
+                total:data.length,
+                posts:data.sort((a,b)=>b.postTime-a.postTime).filter((item,index)=>index>=params.start && index<params.start+params.limit),
+            };
+        }
+        else return {
+            total:-1,
+            posts:[],
+        };
+
+    }
+
 
 }
 export {UserAPI};

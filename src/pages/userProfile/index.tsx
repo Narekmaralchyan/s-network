@@ -10,7 +10,7 @@ import UserProfileBody from '../../components/userProfileBody';
 
 
 const UserProfile = () => {
-    const {id : profileUserId} = useParams();
+    const profileUserId = useLocation().pathname.split('/')[2];
     const {data} = useAppSelector(state => state.currentUser);
 
     const currentUserAPI = new UserAPI(data || '');
