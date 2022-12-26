@@ -2,11 +2,11 @@
 display:flex;
     justify-content:start;
     flex-wrap:wrap;
-    width:70vw;
+    width:50vw;
     gap: 10px;
 }
 .postItem{
-    width: 30%;
+    width: 31%;
     background-color: white;
     height: 250px;
     display: flex;

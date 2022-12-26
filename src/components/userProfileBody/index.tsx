@@ -6,9 +6,7 @@ import { Skeleton } from '@mui/material';
 
 interface IProps{
     profileUserId:string;
-
 }
-
 
 const UserProfileBody:FC<IProps> = ({profileUserId}) => {
     const [pageLoading,setPageLoading] = useState(true);
@@ -36,12 +34,9 @@ const UserProfileBody:FC<IProps> = ({profileUserId}) => {
 
    if(pageLoading){
        return (<div className="pageLoading">
-           <Skeleton variant="rectangular" width={'30%'} height={250} />
-           <Skeleton variant="rectangular" width={'30%'} height={250} />
-           <Skeleton variant="rectangular" width={'30%'} height={250} />
-           <Skeleton variant="rectangular" width={'30%'} height={250} />
-           <Skeleton variant="rectangular" width={'30%'} height={250} />
-           <Skeleton variant="rectangular" width={'30%'} height={250} />
+               <Skeleton variant="rectangular" width={'23%'} height={250} />
+               <Skeleton variant="rectangular" width={'23%'} height={250} />
+               <Skeleton variant="rectangular" width={'23%'} height={250} />
        </div>);
    }
    else if(posts?.length){

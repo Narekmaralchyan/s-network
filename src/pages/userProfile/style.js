@@ -1,6 +1,6 @@
  const  box = {
     'm':0,
-    'p':0,
+    'pl':50,
     'width':'100vw',
     'height':'100vh',
     'display': 'flex',
@@ -9,7 +9,7 @@
     'justifyContent':'start',
      'overflowY':'scroll',
      'gap':'10px',
-    'alignItems':'center' };
+    'alignItems':'start' };
 
 const style = { box};
     export  default style;

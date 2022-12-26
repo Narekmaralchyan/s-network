@@ -5,6 +5,7 @@ const boxStyle = {
     width: '15vw',
     minWidth:'175px',
     height: '100vh'
+
 };
 
 const leftMenu = { boxStyle };

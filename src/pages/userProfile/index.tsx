@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation , useParams } from 'react-router-dom';
+import { useLocation , } from 'react-router-dom';
 
 import {UserAPI} from 'API';
 import { Card } from '@mui/material';

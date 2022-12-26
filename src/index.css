@@ -14,5 +14,12 @@ code {
 #root{
   position: relative;
   display: flex;
+  align-items: center;
+  justify-content: center;
 
+}
+.left_menu{
+  position: fixed;
+  left: 0;
+  top: 0;
 }

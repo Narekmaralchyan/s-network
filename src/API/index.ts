@@ -43,10 +43,10 @@ class UserAPI {
     }
 
     async getAllPrimitiveData() {
-        const name = await this.getName();
-        const lastName = await this.getLastName();
-        const email = await this.getEmail();
-        const avatarUrl = await this.getAvatar();
+        const name:string = await this.getName();
+        const lastName:string = await this.getLastName();
+        const email:string = await this.getEmail();
+        const avatarUrl:string = await this.getAvatar();
         const followers = await this.getFollowers();
         const follows = await this.getFollows();
         return {
@@ -62,6 +62,7 @@ class UserAPI {
         const posts = await get(ref(db, `${this.userId}/posts`));
         if(posts.val()){
             const data = Object.values(posts.val()) as IPost[];
+
             return data.sort((a,b)=>b.postTime-a.postTime);
         }
         return posts.val();
@@ -141,6 +142,20 @@ class UserAPI {
         return filteredData.filter(user=>(user.name +' '+ user.lastName).toUpperCase().includes(name.toUpperCase()) );
     }
 
+    async likePost(authorId:string,postId:string){
+        const likes = await get(ref(db, `${authorId}/posts/${postId}/likes`));
+        const array = (likes.val()  || []) as string[];
+
+             if(array.includes(this.userId)){
+                 await set(ref(db, `${authorId}/posts/${postId}/likes`),[...array.filter(id=>id!==this.userId)]);
+             }
+             else {
+                await set(ref(db, `${authorId}/posts/${postId}/likes`),[...array,this.userId]);
+             }
+
+
+    }
+
     async getFollowPosts(params:IPostRequestParams){
         const data= [] as IPost[];
         const follows = await this.getFollows();
@@ -148,10 +163,12 @@ class UserAPI {
             for(const user of follows){
                 const tempAPI = new UserAPI(user);
                 const tempPOSTS = await  tempAPI.getPosts();
-                data.push(...tempPOSTS);
+               if (tempPOSTS){
+                   data.push(...tempPOSTS);
+               }
             }
             return {
-                total:data.length,
+                total:data.length || -1,
                 posts:data.sort((a,b)=>b.postTime-a.postTime).filter((item,index)=>index>=params.start && index<params.start+params.limit),
             };
         }

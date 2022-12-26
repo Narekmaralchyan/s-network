@@ -1,7 +1,11 @@
-import React , { useEffect , useState } from 'react';
-import { IPost , IPostRequestParams } from '../../interfaces';
-import { useAppSelector } from '../../app/hooks';
-import { UserAPI } from '../../API';
+import React , {  useEffect , useState } from 'react';
+import { IPost , IPostRequestParams } from 'interfaces';
+import { useAppSelector } from 'app/hooks';
+import { UserAPI } from 'API';
+import FeedPostItem from '../feedPostItem';
+import './style.css';
+
+
 
 interface IData {
     total:number,
@@ -9,7 +13,7 @@ interface IData {
 }
 
 const PostsList = () => {
-    // const [loading,setLoading] = useState(false);
+    const [loading,setLoading] = useState(true);
     const [data,setData] = useState<IData>({
         total:0,
         posts:[],
@@ -22,7 +26,7 @@ const PostsList = () => {
 
     useEffect(()=>{
         if(currentUserId){
-            if(data.total>-1 || data.posts.length<data.total){
+                setLoading(true);
                 const currentUserAPI = new UserAPI(currentUserId);
                 currentUserAPI.getFollowPosts(params)
                     .then(res=>{
@@ -30,22 +34,36 @@ const PostsList = () => {
                             total:res.total,
                             posts:[...prevState.posts,...res.posts]
                         }));
-                    });
-            }
+                    }).then(()=>{
+                        setLoading(false);
+                });
+
         }
     },[params,currentUserId]);
-    function loadMore(){
-        setParams(prev=>({
-            ...prev,
-            start:prev.start+prev.limit,
-        }));
+
+    //@ts-ignore
+    function loadMore(e){
+       const loadIsValid = e.target.scrollTop > e.target.scrollHeight * 0.5;
+        if(!loading && loadIsValid && data.posts.length<data.total && data.total>-1 ){
+                setParams({
+                    start:params.start+params.limit,
+                    limit:params.limit,
+                });
+        }
     }
+
     return (
-        <div>
-            <button onClick={loadMore}>LOAD MORE</button>
-           {data.posts.map(post=>{
-               return <div key={post.id}>{post.description}</div>;
-           })}
+        <div onScroll={loadMore} className="feedPostsList">
+
+            {
+                data.posts.length?
+                    data.posts.map(post=>{
+                    return <FeedPostItem key={post.id} post={post}/>;
+                    })
+                :
+                    <h3>NO POSTS</h3>
+                 }
+            {loading && 'loading...'}
         </div>
     );
 };
